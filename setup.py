@@ -12,6 +12,11 @@ with open('HISTORY.md') as history_file:
 
 requirements = [
     'fab-classic',
+    'pyyaml',
+    'dnspython',
+    'Jinja2',
+    'requests',
+    'PyGithub',
 ]
 
 test_requirements = ['pytest>=3', ]
