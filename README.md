@@ -9,3 +9,20 @@ Reusable automation tasks and scripts based on fab-classic: cloud provisiotning,
 
 * Documentation: https://fabfiles.readthedocs.io
 
+TASKs:
+- [x] AWS basics with boto
+  - [x] figure out latest debian image
+  - [x] credentials
+- [x] test basic provision AWS
+- [ ] GCP command-line hack for IP address and instance
+  - [ ] creentials
+- [ ] test basic provision GCP
+- [ ] new utils:
+  - [ ] checkcreds
+  - [ ] checkinventory
+
+
+
+### Test AWS instance
+
+ssh -i

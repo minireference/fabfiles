@@ -1,3 +1,10 @@
+# Dev notebooks
+notebooks
+fabfiles/cut_material.py
+
+# Cloud credentials and secret configs
+credentials/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
