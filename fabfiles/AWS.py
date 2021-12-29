@@ -18,7 +18,7 @@ SECRET_ACCESS_KEY = os.environ.get('SECRET_ACCESS_KEY')
 AWS_REGION = "ca-central-1"
 AWS_AVAILABILITY_ZONE = "ca-central-1a"
 AWS_INSTACE_TYPE = "t2.micro"
-
+AWS_INSTANCE_VOLUME_SIZE = 20
 
 # OS settings
 DEBAIN_AMI_IMAGE_ID = "ami-030d779d5a11f6000"  # debian-10-amd64-20211011-792
@@ -50,7 +50,7 @@ ec2r = boto3.resource(
 
 
 @task
-def provisiton_landscape(name="TEST"):
+def provision_landscape(name="TEST"):
     """
     Provision a complete AWS landscape:
     - VPC
@@ -107,6 +107,13 @@ def provisiton_landscape(name="TEST"):
             'AssociatePublicIpAddress': False,
             'Groups': [sg.group_id]
         }],
+        BlockDeviceMappings=[{
+            "DeviceName": "/dev/xvda",
+            "Ebs": {
+                "VolumeSize": AWS_INSTANCE_VOLUME_SIZE,
+                "DeleteOnTermination": True
+            }
+        }],
     )
     instance = list(vpc.instances.all())[0]
     vpc.create_tags(Resources=[instance.id], Tags=[{"Key": "Name", "Value": name+"-instance"}])
@@ -119,7 +126,7 @@ def provisiton_landscape(name="TEST"):
     print('Associated', public_ip, 'with instance', instance.id)
 
     print('DONE provisioning AWS landscape', name, 'VPC id = ', vpc.id)
-    puts(blue('Login to instance using:     ssh -i credenials/admin admin@' + public_ip))
+    puts(blue('Login to instance using:     ssh -i credentials/admin admin@' + public_ip))
 
 
 
